@@ -1,0 +1,74 @@
+
+void Markgozari (char zamin[19][19],int mark[19][19])
+{
+    for (int i=0;i<19;i++)
+        for (int j=0;j<19;j++)
+        {
+            if ((zamin[i][j]=='-' )||(zamin[i][j] ==  '|') || (i % 2 == 0 && j % 2 == 0))
+            {
+                mark[i][j]=1;
+            }
+            else {
+                mark[i][j]=0;
+            }
+
+        }
+    mark[1][1]=1;
+
+}
+int is_valid(int x, int y ,int mark[19][19])
+{
+    if (x<0)
+        return 0;
+    if (y<0)
+        return 0;
+    if (x>=19)
+        return 0;
+    if (y>=19)
+        return 0;
+    if (mark[x][y]==1)
+        return 0;
+
+    return 1;
+
+}
+
+void dfs (int mark[19][19],int x , int y)
+{
+    if (is_valid(x-1,y,mark)==1)
+    {
+        mark[x-1][y] =1;
+        dfs (mark,x-1,y);
+    }
+    if (is_valid(x+1,y,mark)==1)
+    {
+        mark[x+1][y] =1;
+        dfs (mark,x+1,y);
+    }
+    if (is_valid(x,y-1,mark)==1)
+    {
+        mark[x][y-1] =1;
+        dfs (mark,x,y-1);
+    }
+    if (is_valid(x,y+1,mark)==1)
+    {
+        mark[x][y+1] =1;
+        dfs (mark,x,y+1);
+    }
+
+}
+int errorDivar (int ss,int aval,int akhar,int mark[19][19])
+{
+    if ( ss % 2 == 1 || aval % 2 == 0 || akhar %2 == 0)
+    {
+        return 0;
+    }
+    for (int i=0;i<19;i++)
+        for (int j=0;j<19;j++)
+            if (mark[i][j]==0)
+            {
+                return 0;
+            }
+
+    return 1;
+}
